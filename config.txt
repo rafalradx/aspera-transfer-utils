@@ -1,7 +1,17 @@
-# Aspera setting
-ASCP_PATH=
+# Aspera settings
+ASCP_PATH=/net/people/plgrid/plgrapietras/.aspera/connect/bin/ascp
+ASPERA_TOKEN=mUZWUPz8BHxewZiZ
 ASPERA_SCP_PASS=9r7cTg7E
-TRANSFER=200M
-# path to raw images (tiff's) 
-TIFF_PATH=
-SPLIT=5
+TRANSFER_SPEED=200M
+# path to raw images (tiff's)
+TIFF_PATH=/home/rafal/test
+# unique name for scripts naming (project, sample, id, etc)
+NAME_ID = b6f_dpq
+# number of files in a batch to send in one slurm job
+BATCH_SIZE=12
+# SLURM job setting
+JOB_NAME=aspera_transfer
+TIME=48:00:00
+# grant name
+ACCOUNT=plgcytochromybc2-cpu
+

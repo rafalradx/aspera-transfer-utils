@@ -1,0 +1,4 @@
+Pipfile
+Pipfile.lock
+*.sh
+transfer_logs
