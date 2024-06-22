@@ -9,8 +9,12 @@ def split_files_into_batches(source_dir, batch_size=2000):
         f for f in os.listdir(source_dir) if os.path.isfile(os.path.join(source_dir, f))
     ]
 
+    print(f"Number of files to send: {len(files)}")
+
     # Calculate the number of batches required
     num_batches = (len(files) + batch_size - 1) // batch_size
+
+    print(f"Number of batches: {num_batches}")
 
     # subdir paths
     subdir_paths = []
