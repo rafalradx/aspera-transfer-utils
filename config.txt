@@ -1,0 +1,7 @@
+# Aspera setting
+ASCP_PATH=
+ASPERA_SCP_PASS=9r7cTg7E
+TRANSFER=200M
+# path to raw images (tiff's) 
+TIFF_PATH=
+SPLIT=5
