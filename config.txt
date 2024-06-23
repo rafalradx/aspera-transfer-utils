@@ -14,4 +14,3 @@ JOB_NAME=aspera_transfer
 TIME=48
 # grant slurm name
 ACCOUNT=plgcytochromybc2-gpu-a100
-
