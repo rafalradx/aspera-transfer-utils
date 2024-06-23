@@ -11,7 +11,7 @@ NAME_ID = b6f_dpq
 BATCH_SIZE=12
 # SLURM job setting
 JOB_NAME=aspera_transfer
-TIME=48:00:00
-# grant name
-ACCOUNT=plgcytochromybc2-cpu
+TIME=48
+# grant slurm name
+ACCOUNT=plgcytochromybc2-gpu-a100
 

@@ -9,6 +9,14 @@ def split_files_into_batches(source_dir, batch_size=2000):
         f for f in os.listdir(source_dir) if os.path.isfile(os.path.join(source_dir, f))
     ]
 
+    if not files:
+        print("No files found in source dir. Assuming split into subdirs")
+        subdir_paths = [
+            os.path.join(source_dir, subdir) for subdir in os.listdir(source_dir)
+        ]
+        print(f"Subdirs found: {len(subdir_paths)}")
+        return subdir_paths
+
     print(f"Number of files to send: {len(files)}")
 
     # Calculate the number of batches required
@@ -61,16 +69,17 @@ if __name__ == "__main__":
         # lines of sbatch script to write
         lines = [
             "#!/bin/bash\n",
-            "#SBATCH --job-name=aspera_transfer\n",
-            f"#SBATCH --time={config['TIME']}\n",
-            f"#SBATCH --account={config['ACCOUNT']}\n",
-            "#SBATCH --partition=plgrid\n",
+            "#SBATCH --job-name aspera_transfer\n",
+            f"#SBATCH -A {config['ACCOUNT']}\n",
+            "#SBATCH --partition plgrid-gpu-a100\n",
+            f"#SBATCH --time=0-{config['TIME']}\n",
             "#SBATCH --nodes=1\n",
             "#SBATCH --ntasks-per-node=4\n",
+            "#SBATCH --gres=gpu:0\n",
             "#SBATCH --cpus-per-task=1\n",
-            "#SBATCH --mem=10G\n",
-            f'#SBATCH --output="{log_dir}/{NAME_ID}_{subdir_name}_log.txt"\n',
-            f'#SBATCH --error="{log_dir}/{NAME_ID}_{subdir_name}_err.txt"\n',
+            "#SBATCH --mem=10000MB\n",
+            f'#SBATCH -o "{log_dir}/{NAME_ID}_{subdir_name}_log.txt"\n',
+            f'#SBATCH -e "{log_dir}/{NAME_ID}_{subdir_name}_err.txt"\n',
             "\n",
         ]
 
@@ -82,7 +91,7 @@ if __name__ == "__main__":
             f"ASPERA_SCP_PASS={config['ASPERA_SCP_PASS']}",
             config["ASCP_PATH"],
             f"-QT -P 33001 -l {config['TRANSFER_SPEED']} -L- -k3",
-            f"{config['TIFF_PATH']}/*.tiff",
+            f"{config['TIFF_PATH']}/{subdir_name}/*.tiff",
             f"emp_dep@hx-fasp-1.ebi.ac.uk:upload/{config['ASPERA_TOKEN']}/data",
         ]
 
@@ -91,3 +100,5 @@ if __name__ == "__main__":
         with open(file_name, "w") as fn:
             fn.writelines(lines)
             fn.write(ascp_command)
+
+    print("Files split and sbatch scripts created successfully!")
