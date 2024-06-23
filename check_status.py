@@ -11,7 +11,7 @@ def parse_log(file):
     )
 
     transfer_events = []
-    transfer_stats = {"total_files": 0, "started": 0, "success": 0}
+    transfer_stats = {"total_files": 0, "started": 0, "success": 0, "total_time": 0.0}
 
     for line in file:
 
@@ -48,6 +48,7 @@ def parse_log(file):
             )
             if stop_match.group("status") == "success":
                 transfer_stats["success"] += 1
+                transfer_stats["total_time"] += float(stop_match.group("elapsed"))
 
     return transfer_events, transfer_stats
 
@@ -72,7 +73,9 @@ def main():
     print(f"Transfers started: {transfer_stats['started']}")
     print(f"Transfers completed successfully: {transfer_stats['success']}")
     completed = transfer_stats["success"] / transfer_stats["total_files"]
-    print(f"Progress: {completed}")
+    print(f"Progress: {completed:.2%}")
+    elapsed_hours = transfer_stats["total_time"] / 3600
+    print(f"Total transfer time: {elapsed_hours:.2} h")
 
 
 if __name__ == "__main__":
