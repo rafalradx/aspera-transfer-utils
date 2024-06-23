@@ -64,14 +64,14 @@ def main():
         transfer_events, transfer_stats = parse_log(file)
 
     # Print the parsed transfer events
-    for event in transfer_events:
-        print(event)
+    # for event in transfer_events:
+    #    print(event)
 
     # Print the transfer statistics
     print(f"Total files to transfer: {transfer_stats['total_files']}")
     print(f"Transfers started: {transfer_stats['started']}")
     print(f"Transfers completed successfully: {transfer_stats['success']}")
-    completed = {transfer_stats["success"]} / {transfer_stats["total_files"]}
+    completed = transfer_stats["success"] / transfer_stats["total_files"]
     print(f"Progress: {completed}")
 
 
