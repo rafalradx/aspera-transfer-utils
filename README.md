@@ -81,7 +81,8 @@ Total transfer time: 0.65 h
 ```
 ## Notes
 * Ensure that the `ASCP_PATH` is correctly set to the Aspera Connect ascp binary installed on your cyfronet Athena account.
-* The SLURM job will output log files named ${NAME_ID}_subdir1_log.txt and ${NAME_ID}_subdir1_err.txt in `transfer_log` directory for each subdirectory submitted for file transfer.
+* Make sure you have correct upload token `ASPERA_TOKEN` and password `ASPERA_SCP_PASS` provided in upload section of EMPIAR deposition process.
+* The SLURM job will output log files named `${NAME_ID}_subdir1_log.txt` and `${NAME_ID}_subdir1_err.txt` in `transfer_log` directory for each subdirectory submitted for file transfer.
 ## License
 This project is licensed under the MIT License.
 ## Acknowledgments
