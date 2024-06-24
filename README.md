@@ -52,8 +52,17 @@ ACCOUNT=mygrant-gpu-a100
 ```bash
 python empiar_prep.py
 ```
-The script splits files into batches and moves them files subdirectories: subdir1, subdir2, etc. It may take some time. Be patient.
-Once done it generates SLURM scripts for each batch of files
+The script splits files into batches and moves them into subdirectories: subdir1, subdir2, etc. It may take some time. Be patient.
+Once it's done it generates SLURM scripts for each batch of files.
+Example of output:
+```bash
+Number of files to send: 3027
+Number of batches: 4
+Files split and sbatch scripts created successfully!
+```
+If the script does not find files in provided directory (`TIFF_PATH`) it assumes the files are already split in subdirectories.
+So you can safely run the script twice on the same directory.
+
 ### 5. Submit a SLURM job by running sbatch for each script created
 ``` bash
 sbatch super_important_sample_subdir1.sh
