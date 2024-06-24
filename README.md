@@ -53,7 +53,7 @@ ACCOUNT=mygrant-gpu-a100
 python empiar_prep.py
 ```
 The script splits files into batches and moves them into subdirectories: subdir1, subdir2, etc. It may take some time. Be patient.
-Once it's done it generates SLURM scripts for each batch of files.
+Once it's done it generates SLURM submission scripts for each batch of files.
 Example of output:
 ```bash
 Number of files to send: 3027
@@ -80,3 +80,8 @@ Transfers completed successfully: 56
 Progress: 4.94%
 Total transfer time: 0.65 h
 ```
+## Notes
+* Ensure that the `ASCP_PATH` is correctly set to the Aspera Connect ascp binary.
+* The SLURM job will output log files named ${NAME_ID}_subdir1_log.txt and ${NAME_ID}_subdir1_err.txt in `transfer_log` directory for each subdirectory submitted for sending.
+## License
+This project is licensed under the MIT License.
