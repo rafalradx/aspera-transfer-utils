@@ -10,16 +10,16 @@ This project provides a way to transfer raw cryoEM data (tiff images) to EMPIAR 
 
 ## Usage 
 
-# 1. Clone the repository
+### 1. Clone the repository
 ```bash
 git clone https://github.com/rafalradx/aspera-transfer-utils
 cd aspera-transfer-utils
 ```
-# 2. Make sure you have `python-dotenv' installed
+### 2. Make sure you have `python-dotenv` installed
 ```bash
 pip install python-dotenv
 ```
-# 3. Configuration
+### 3. Configuration
 
 Edit the `config.txt` file to specify your settings:
 
