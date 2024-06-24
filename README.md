@@ -48,3 +48,13 @@ TIME=48
 # Grant SLURM name (Athena style name)
 ACCOUNT=mygrant-gpu-a100
 ```
+### 4. Run script 'empiar_prep.py' 
+```bash
+python empiar_prep.py
+```
+The script splits files into batches and moves them files subdirectories: subdir1, subdir2, etc. It may take some time. Be patient.
+Once done it generates SLURM scripts for each batch of files
+### 5. Submit a SLURM job by running sbatch for each script created
+``` bash
+sbatch super_important_sample_subdir1.sh
+```
