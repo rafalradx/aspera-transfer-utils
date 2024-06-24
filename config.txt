@@ -1,0 +1,17 @@
+# Aspera settings
+ASCP_PATH=/home/user/.aspera/connect/bin/ascp
+ASPERA_TOKEN=EMPIAR_upload_token
+ASPERA_SCP_PASS=EMPIAR_super_secret_password
+TRANSFER_SPEED=200M
+# path to raw images (tiff's) directory
+TIFF_PATH=/home/user/cryoEM/data
+# unique name for scripts naming (project, sample, id, etc)
+NAME_ID = super_important_sample
+# number of files in a batch to send in one slurm job
+BATCH_SIZE=1500
+# SLURM job setting
+JOB_NAME=aspera_transfer
+# job max lifetime
+TIME=48
+# grant slurm name (Athena style name)
+ACCOUNT=mygrant-gpu-a100
