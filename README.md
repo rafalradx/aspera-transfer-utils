@@ -48,7 +48,7 @@ TIME=48
 # Grant SLURM name (Athena style name)
 ACCOUNT=mygrant-gpu-a100
 ```
-### 4. Run script 'empiar_prep.py' 
+### 4. Run the `empiar_prep.py` script
 ```bash
 python empiar_prep.py
 ```
@@ -57,4 +57,17 @@ Once done it generates SLURM scripts for each batch of files
 ### 5. Submit a SLURM job by running sbatch for each script created
 ``` bash
 sbatch super_important_sample_subdir1.sh
+```
+### 6. Use `check_status.py` script to monitor upload progress 
+```batch
+python check_status.py transfer_log/super_important_sample_subdir1_err.txt
+```
+Run this script for each error log in `transfer_log` directory. 
+Example output:
+```batch
+Total files to transfer: 1133
+Transfers started: 58
+Transfers completed successfully: 56
+Progress: 4.94%
+Total transfer time: 0.65 h
 ```
