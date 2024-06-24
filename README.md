@@ -1,6 +1,6 @@
 # Aspera Transfer with SLURM
 
-This project provides a way to transfer files using Aspera in combination with SLURM for job scheduling. The configuration file allows you to customize the settings for your transfer and SLURM job.
+This project provides a way to transfer raw cryoEM data (tiff images) to EMPIAR database using Aspera in combination with SLURM for job scheduling. The configuration file allows you to customize the settings for your transfer and SLURM job.
 
 ## Prerequisites
 
@@ -8,7 +8,18 @@ This project provides a way to transfer files using Aspera in combination with S
 - SLURM installed and configured.
 - Python installed.
 
-## Configuration
+## Usage 
+
+# 1. Clone the repository
+```bash
+git clone https://github.com/rafalradx/aspera-transfer-utils
+cd aspera-transfer-utils
+```
+# 2. Make sure you have `python-dotenv' installed
+```bash
+pip install python-dotenv
+```
+# 3. Configuration
 
 Edit the `config.txt` file to specify your settings:
 
@@ -36,3 +47,4 @@ TIME=48
 
 # Grant SLURM name (Athena style name)
 ACCOUNT=mygrant-gpu-a100
+```
