@@ -6,11 +6,11 @@ This project provides a way to transfer files using Aspera in combination with S
 
 - Aspera Connect installed and configured.
 - SLURM installed and configured.
-- Bash shell.
+- Python installed.
 
 ## Configuration
 
-Edit the `aspera_config.sh` file to specify your settings:
+Edit the `config.txt` file to specify your settings:
 
 ```bash
 # Aspera settings
