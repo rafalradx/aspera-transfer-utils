@@ -25,7 +25,6 @@ def parse_log(file):
             transfer_events.append(
                 {
                     "event": "start",
-                    "uuid": start_match.group("uuid"),
                     "status": start_match.group("status"),
                     "file": start_match.group("file"),
                     "size": int(start_match.group("size")),
@@ -64,8 +63,8 @@ def main():
         transfer_events, transfer_stats = parse_log(file)
 
     # Print the parsed transfer events
-    for event in transfer_events:
-        print(event)
+    # for event in transfer_events:
+    #    print(event)
 
     # Print the transfer statistics
     print(f"Total files to transfer: {transfer_stats['total_files']}")
