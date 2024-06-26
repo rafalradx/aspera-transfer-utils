@@ -43,16 +43,25 @@ def main():
 
     # Print the results
     print("Files listed in text file but not in source directory:")
-    for file in missing_files:
-        print(file)
+    if len(missing_files) != 0:
+        for file in missing_files:
+            print(file)
+    else:
+        print("None")
 
     print("\nFiles in source directory but not listed in text file:")
-    for file in extra_files:
-        print(file)
+    if len(extra_files) != 0:
+        for file in extra_files:
+            print(file)
+    else:
+        print("None")
 
     print("\nFiles with size mismatches:")
-    for file, sizes in size_mismatches.items():
-        print(f"{file}: Listed size = {sizes[0]}, Source size = {sizes[1]}")
+    if size_mismatches:
+        for file, sizes in size_mismatches.items():
+            print(f"{file}: Listed size = {sizes[0]}, Source size = {sizes[1]}")
+    else:
+        print("None")
 
 if __name__ == "__main__":
     main()
