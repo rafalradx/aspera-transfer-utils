@@ -101,7 +101,7 @@ def main():
         if started != 0:
             print(f"Transfers started: {started}")
         else:
-            print("Tranfser resumed")
+            print("Transfer resumed")
         print(f"Transfers completed successfully: {success}")
         print(f"Progress: {progress:.2%}")
     else:
