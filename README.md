@@ -80,12 +80,12 @@ Progress: 4.94%
 ```
 
 ### 7. Use `validate_files.py` to validate transfered files once the transfer is completed
-Download the uploaded files list from EMPIAR deposition session, save it and transfer it to your working directory on Athena.
-e.g. `uploaded_files.txt`. The file should only contain file list! Run the script
+Download the uploaded files list (filenames and sizes) from EMPIAR deposition session, save it and transfer it to your working directory on Athena. e.g. `uploaded_files.txt`. Run the script:
 ```batch
 python validate_files.py uploaded_files.txt
 ```
 The script takes path to source directory (`TIFF_PATH`) from `config.txt`
+
 Example output:
 ```batch
 Files listed in: 'uploaded_files.txt'
