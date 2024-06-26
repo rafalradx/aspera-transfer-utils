@@ -77,7 +77,6 @@ Total files to transfer: 1133
 Transfers started: 58
 Transfers completed successfully: 56
 Progress: 4.94%
-Total transfer time: 0.65 h
 ```
 ## Notes
 * Ensure that the `ASCP_PATH` is correctly set to the Aspera Connect ascp binary installed on your cyfronet Athena account.
