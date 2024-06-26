@@ -3,11 +3,17 @@ import argparse
 
 
 def parse_log(file):
+    # transfer_start_pattern = re.compile(
+    #     r'LOG FASP Transfer Start uuid=(?P<uuid>[a-f0-9-]+) op=send status=(?P<status>\w+) file="(?P<file>[^"]+)" size=(?P<size>\d+) start_byte=\d+ rate=(?P<rate>[\d.]+)Mbps loss=[\d.]+ rexreqs=\d+ overhead=\d+'
+    # )
+    # transfer_stop_pattern = re.compile(
+    #     r'LOG FASP Transfer Stop uuid=(?P<uuid>[a-f0-9-]+) op=send status=(?P<status>\w+) file="(?P<file>[^"]+)" size=(?P<size>\d+) start_byte=\d+ rate=(?P<rate>[\d.]+)Mbps elapsed=(?P<elapsed>[\d.]+)s loss=[\d.]+ rexreqs=\d+ overhead=\d+'
+    # )
     transfer_start_pattern = re.compile(
-        r'LOG FASP Transfer Start uuid=(?P<uuid>[a-f0-9-]+) op=send status=(?P<status>\w+) file="(?P<file>[^"]+)" size=(?P<size>\d+) start_byte=\d+ rate=(?P<rate>[\d.]+)Mbps loss=[\d.]+ rexreqs=\d+ overhead=\d+'
+        r'LOG FASP Transfer Start uuid=(?P<uuid>[a-f0-9-]+) op=send status=(?P<status>\w+) file="(?P<file>[^"]+)" size=(?P<size>\d+) start_byte=\d+ rate=(?P<rate>[\d.]+)(?P<unit>kbps|Mbps) loss=[\d.]+ rexreqs=\d+ overhead=\d+'
     )
     transfer_stop_pattern = re.compile(
-        r'LOG FASP Transfer Stop uuid=(?P<uuid>[a-f0-9-]+) op=send status=(?P<status>\w+) file="(?P<file>[^"]+)" size=(?P<size>\d+) start_byte=\d+ rate=(?P<rate>[\d.]+)Mbps elapsed=(?P<elapsed>[\d.]+)s loss=[\d.]+ rexreqs=\d+ overhead=\d+'
+        r'LOG FASP Transfer Stop uuid=(?P<uuid>[a-f0-9-]+) op=send status=(?P<status>\w+) file="(?P<file>[^"]+)" size=(?P<size>\d+) start_byte=\d+ rate=(?P<rate>[\d.]+)(?P<unit>kbps|Mbps) elapsed=(?P<elapsed>[\d.]+)s loss=[\d.]+ rexreqs=\d+ overhead=\d+'
     )
 
     transfer_events = []
@@ -37,7 +43,6 @@ def parse_log(file):
             transfer_events.append(
                 {
                     "event": "stop",
-                    "uuid": stop_match.group("uuid"),
                     "status": stop_match.group("status"),
                     "file": stop_match.group("file"),
                     "size": int(stop_match.group("size")),
