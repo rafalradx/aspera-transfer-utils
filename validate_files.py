@@ -25,7 +25,8 @@ def main():
             parts = line.split()
             file_path = parts[0]
             file_size = int(parts[1])
-            file_list[file_path] = file_size
+            file_name = file_path.split("/")[-1]
+            file_list[file_name] = file_size
 
     # Get the list of files and their sizes in the source directory
     source_files = {}
@@ -33,7 +34,7 @@ def main():
         for name in files:
             file_path = os.path.join(root, name)
             file_size = os.path.getsize(file_path)
-            source_files[file_path] = file_size
+            source_files[name] = file_size
 
     # Compare the two lists
     missing_files = [file for file in file_list if file not in source_files]
