@@ -45,7 +45,7 @@ def main():
     print(f"Files listed in: '{file_list_path}'")
     print(f"Source directory to compare: '{source_directory_path}'")
     print(f"Number of files in the list: {len(file_list)}")
-    print(f"Number of files in the source directory: {len(file_list)}")
+    print(f"Number of files in the source directory: {len(source_files)}")
 
     # Print the results
     print("Files listed in text file but not in source directory:")
