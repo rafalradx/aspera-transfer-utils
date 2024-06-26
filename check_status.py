@@ -51,16 +51,20 @@ def parse_log(file):
 
 
 # format final statistics when transfer is finished
-def extract_statistics(log):
-    # Only process the end part of the log which contains statistics
-    log_lines = log.strip().split('\n')[-17:]  # take last 17 rows
-    stats = {}
+def get_last_n_lines(file_path, n):
+    with open(file_path, 'r') as file:
+        # Read the file lines in reverse order
+        lines = file.readlines()
+        # Get the last n lines
+        last_n_lines = lines[-n:]
+    return last_n_lines
 
+def extract_statistics(log_lines):
+    stats = {}
     for line in log_lines:
         if ':' in line:
             key, value = line.split(':', 1)
             stats[key.strip()] = int(value.strip())
-
     return stats
 
 def print_statistics(stats):
@@ -100,11 +104,9 @@ def main():
         print(f"Transfers completed successfully: {success}")
         print(f"Progress: {progress:.2%}")
     else:
-        with open(args.filename, "r") as file:
-            stats = extract_statistics(file)
+        last_17_lines = get_last_n_lines(args.filename, 17)
+        stats = extract_statistics(last_17_lines)
         print_statistics(stats)
-
-
 
 
 if __name__ == "__main__":
