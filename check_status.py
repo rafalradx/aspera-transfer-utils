@@ -64,6 +64,7 @@ def extract_statistics(log_lines):
     for line in log_lines:
         if ':' in line:
             key, value = line.split(':', 1)
+            key = key.removeprefix("LOG ")
             stats[key.strip()] = int(value.strip())
     return stats
 
@@ -104,6 +105,7 @@ def main():
         print(f"Transfers completed successfully: {success}")
         print(f"Progress: {progress:.2%}")
     else:
+        print("File transfer finished")
         last_17_lines = get_last_n_lines(args.filename, 17)
         stats = extract_statistics(last_17_lines)
         print_statistics(stats)
