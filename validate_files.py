@@ -41,6 +41,12 @@ def main():
     extra_files = [file for file in source_files if file not in file_list]
     size_mismatches = {file: (file_list[file], source_files[file]) for file in file_list if file in source_files and file_list[file] != source_files[file]}
 
+
+    print(f"Files listed in: '{file_list_path}'")
+    print(f"Source directory to compare: '{source_directory_path}'")
+    print(f"Number of files in the list: {len(file_list)}")
+    print(f"Number of files in the source directory: {len(file_list)}")
+
     # Print the results
     print("Files listed in text file but not in source directory:")
     if len(missing_files) != 0:
