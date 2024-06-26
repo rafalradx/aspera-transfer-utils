@@ -3,12 +3,6 @@ import argparse
 
 
 def parse_log(file):
-    # transfer_start_pattern = re.compile(
-    #     r'LOG FASP Transfer Start uuid=(?P<uuid>[a-f0-9-]+) op=send status=(?P<status>\w+) file="(?P<file>[^"]+)" size=(?P<size>\d+) start_byte=\d+ rate=(?P<rate>[\d.]+)Mbps loss=[\d.]+ rexreqs=\d+ overhead=\d+'
-    # )
-    # transfer_stop_pattern = re.compile(
-    #     r'LOG FASP Transfer Stop uuid=(?P<uuid>[a-f0-9-]+) op=send status=(?P<status>\w+) file="(?P<file>[^"]+)" size=(?P<size>\d+) start_byte=\d+ rate=(?P<rate>[\d.]+)Mbps elapsed=(?P<elapsed>[\d.]+)s loss=[\d.]+ rexreqs=\d+ overhead=\d+'
-    # )
     transfer_start_pattern = re.compile(
         r'LOG FASP Transfer Start uuid=(?P<uuid>[a-f0-9-]+) op=send status=(?P<status>\w+) file="(?P<file>[^"]+)" size=(?P<size>\d+) start_byte=\d+ rate=(?P<rate>[\d.]+)(?P<unit>Kbps|Mbps) loss=[\d.]+ rexreqs=\d+ overhead=\d+'
     )
@@ -56,6 +50,25 @@ def parse_log(file):
     return transfer_events, transfer_stats
 
 
+# format final statistics when transfer is finished
+def extract_statistics(log):
+    # Only process the end part of the log which contains statistics
+    log_lines = log.strip().split('\n')[-17:]  # take last 17 rows
+    stats = {}
+
+    for line in log_lines:
+        if ':' in line:
+            key, value = line.split(':', 1)
+            stats[key.strip()] = int(value.strip())
+
+    return stats
+
+def print_statistics(stats):
+    print("Source File Transfer Statistics:")
+    for key, value in stats.items():
+        print(f"{key:<50}: {value}")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Parse a log file for transfer events and statistics."
@@ -71,12 +84,27 @@ def main():
     # for event in transfer_events:
     #    print(event)
 
+
     # Print the transfer statistics
-    print(f"Total files to transfer: {transfer_stats['total_files']}")
-    print(f"Transfers started: {transfer_stats['started']}")
-    print(f"Transfers completed successfully: {transfer_stats['success']}")
-    completed = transfer_stats["success"] / transfer_stats["total_files"]
-    print(f"Progress: {completed:.2%}")
+    total_files = transfer_stats["total_files"]
+    started = transfer_stats["started"]
+    success = transfer_stats["success"]
+    progress = (success / total_files) if total_files > 0 else 0
+
+    if progress < 1.0:
+        print(f"Total files to transfer: {total_files}")
+        if started != 0:
+            print(f"Transfers started: {started}")
+        else:
+            print("Tranfser resumed")
+        print(f"Transfers completed successfully: {success}")
+        print(f"Progress: {progress:.2%}")
+    else:
+        with open(args.filename, "r") as file:
+            stats = extract_statistics(file)
+        print_statistics(stats)
+
+
 
 
 if __name__ == "__main__":
